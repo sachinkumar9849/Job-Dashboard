@@ -81,23 +81,9 @@ ul {
   padding: 0;
 }
 
-.img {
-  width: 100%;
-  display: block;
-  object-fit: cover;
-}
 
-.page_notfound-img img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-}
-.back_to-homt {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+
+
 a.btn_theme {
     background: orange;
     padding: 13px 24px;
