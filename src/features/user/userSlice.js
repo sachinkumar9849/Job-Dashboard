@@ -1,10 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import customFetch from "../../utils/axios";
+import {
+  addUserToLocalStorage,
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+} from "../../utils/localStorage";
 
 const initialState = {
   isLoading: false,
-  user: null,
+  isSidebarOpen:false,
+  user: getUserFromLocalStorage(),
 };
 
 export const registerUser = createAsyncThunk(
@@ -21,7 +27,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 export const loginUser = createAsyncThunk(
-  'user/loginUser',
+  "user/loginUser",
   async (user, thunkAPI) => {
     try {
       const resp = await customFetch.post("/auth/login", user);
@@ -38,6 +44,17 @@ const userSlice = createSlice({
   name: "user",
   initialState,
 
+  reducers:{
+    toggleSidebar:(state)=>{
+      state.isSidebarOpen= !state.isSidebarOpen
+    },
+    logoutUser:(state)=>{
+      state.user=null;
+      state.isSidebarOpen= false;
+      removeUserFromLocalStorage();
+    }
+  },
+
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -47,6 +64,7 @@ const userSlice = createSlice({
         const { user } = payload;
         state.isLoading = false;
         state.user = user;
+        addUserToLocalStorage(user);
 
         toast.success(`Hello There ${user.name}`);
       })
@@ -61,16 +79,16 @@ const userSlice = createSlice({
         const { user } = payload;
         state.isLoading = false;
         state.user = user;
+        addUserToLocalStorage(user);
 
         toast.success(`Hello There ${user.name}`);
-
-        toast.success(`Welcome Back ${user.name}`);
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
-      })
+      });
   },
 });
 
+export const {toggleSidebar,logoutUser}= userSlice.actions;
 export default userSlice.reducer;
