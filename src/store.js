@@ -2,12 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 // import jobSlice from './features/job/jobSlice';
 import userSlice from './features/user/userSlice';
 import jobSlice from './features/job/jobSlice';
+import allJobsSlice from './features/allJobs/allJobsSlice';
 // import allJobsSlice from './features/allJobs/allJobsSlice';
 export const store = configureStore({
   reducer: {
     user: userSlice,
-    job: jobSlice
-    // job: jobSlice,
-    // allJobs: allJobsSlice,
+    job: jobSlice,
+    allJobs: allJobsSlice,
   },
 });

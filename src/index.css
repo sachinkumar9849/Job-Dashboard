@@ -94,3 +94,7 @@ a.btn_theme {
     width: 200px;
     text-align: center;
 }
+.interview {
+  background: rgb(224, 232, 249);
+  color: rgb(100, 122, 203);
+}
