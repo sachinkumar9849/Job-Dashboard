@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import customFetch from "../../utils/axios";
 // import { getUserFromLocalStorage } from "../../utils/localStorage";
 import { logoutUser } from "../user/userSlice";
+import { getUserFromLocalStorage } from "../../utils/localStorage";
 
 const initialState = {
   isLoading: false,
@@ -38,32 +39,6 @@ export const createJob = createAsyncThunk(
   }
 );
 
-// const jobSlice = createSlice({
-//   name: "job",
-//   initialState,
-//   reducers: {
-//     handleChange: (state, { payload: { name, value } }) => {
-//       state[name] = value;
-//     },
-//     clearValues: () => {
-//       return initialState;
-//     },
-//   },
-//   extraReducers: {
-//     [createJob.pending]: (state) => {
-//       state.isLoading = true;
-//     },
-//     [createJob.fulfilled]: (state) => {
-//       state.isLoading = false;
-//       toast.success("Job Created");
-//     },
-//     [createJob.rejected]: (state, { payload }) => {
-//       state.isLoading = false;
-//       toast.error(payload);
-//     },
-//   },
-// });
-
 const jobSlice = createSlice({
   name: "job",
   initialState,
@@ -72,7 +47,10 @@ const jobSlice = createSlice({
       state[name] = value;
     },
     clearValues: () => {
-      return initialState;
+      return {
+        ...initialState,
+        jobLocation: getUserFromLocalStorage()?.location || "",
+      };
     },
   },
   extraReducers: (builder) => {
@@ -90,7 +68,6 @@ const jobSlice = createSlice({
       });
   },
 });
-
 
 export const { handleChange, clearValues } = jobSlice.actions;
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { FormRow, FormRowSelect } from "../../components";
 
 import {
@@ -22,6 +23,7 @@ const AddJob = () => {
     isEditing,
     editJobId,
   } = useSelector((store) => store.job);
+  const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,6 +40,15 @@ const AddJob = () => {
     const value = e.target.value;
     dispatch(handleChange({ name, value }));
   };
+
+  useEffect(() => {
+    dispatch(
+      handleChange({
+        name: "jobLocation",
+        value: user.location,
+      })
+    );
+  },[]);
 
   return (
     <>
