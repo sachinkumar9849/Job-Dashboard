@@ -1,18 +1,10 @@
-import BigSidebar from './BigSidebar';
+import BigSidebar from "./BigSidebar";
 
-import FormRow from './FormRow';
+import FormRow from "./FormRow";
+import FormRowSelect from "./FormRowSelect";
 
+import Navbar from "./Navbar";
 
-import Navbar from './Navbar';
+import SmallSidebar from "./SmallSidebar";
 
-import SmallSidebar from './SmallSidebar';
-
-
-export {
-
-  FormRow,
-  Navbar,
-  SmallSidebar,
-  BigSidebar,
- 
-};
+export { FormRow, Navbar, SmallSidebar, BigSidebar, FormRowSelect };
